@@ -2,7 +2,7 @@
 <html lang="en"> 
     <head> 
         <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <title>About Us - Selling Custom Products</title> 
+        <title>Resto-NamanTA</title> 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
         <style>
         body {
@@ -139,7 +139,7 @@
             </div>
             
             <div class="container mt-5" style="text-align: center;">
-                <form>
+                <form id="orderForm" onsubmit="handleSubmit(event)">
                     <div class="form-group">
                         <label for="fullname">Name:</label>
                         <input type="text" class="form-control" style="text-align: center;" id="fullname" name="fullname" placeholder="Enter Full Name">
@@ -157,59 +157,117 @@
                         <input type="text" class="form-control" style="text-align: center;" id="datetime" name="datetime" readonly>
                     </div>
                     <div class="form-group">
+                        <label for="item">Order:</label>
+                        <input type="text" class="form-control" style="text-align: center;" id="item" name="item" placeholder="Orders" readonly>
+                    </div>
+                    <div class="form-group">
                         <label for="total">Total Payment:</label>
                         <input type="number" class="form-control" style="text-align: center;" id="total" name="total" placeholder="Enter Total Payment" readonly>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="margin-bottom: 30px;">Submit Order</button>
+                    <button type="submit" id="submitButton" class="btn btn-primary" style="margin-bottom: 30px;">Submit Order</button>
                 </form>
         
-        <script>
-            window.onload = function() {
-                var menuItems = document.querySelectorAll('.menu-item');
-                var totalPaymentInput = document.querySelector('#total');
-                var datetimeInput = document.querySelector('#datetime');
-                var currentDatetime = new Date();
-                datetimeInput.value = currentDatetime.toLocaleString();
-        
-                menuItems.forEach(function(menuItem) {
-                    var minusButton = menuItem.querySelector('.quantity-control button:first-child');
-                    var plusButton = menuItem.querySelector('.quantity-control button:last-child');
-                    var quantityElement = menuItem.querySelector('.quantity');
-                    var priceElement = menuItem.querySelector('.price');
-                    var unaffectedPriceElement = menuItem.querySelector('.unaffected-price');
-        
-                    var pricePerItem = Number(unaffectedPriceElement.textContent);
-                    var quantity = 0;
-        
-                    minusButton.onclick = function() {
-                        if (quantity > 0) {
-                            quantity--;
-                            quantityElement.textContent = quantity;
-                            priceElement.textContent = pricePerItem * quantity;
+                <script>
+                    window.onload = function() {
+                        var menuItems = document.querySelectorAll('.menu-item');
+                        var totalPaymentInput = document.querySelector('#total');
+                        var datetimeInput = document.querySelector('#datetime');
+                        var orderInput = document.querySelector('#item');
+                        var currentDatetime = new Date();
+                        datetimeInput.value = currentDatetime.toLocaleString();
+                
+                        menuItems.forEach(function(menuItem) {
+                            var minusButton = menuItem.querySelector('.quantity-control button:first-child');
+                            var plusButton = menuItem.querySelector('.quantity-control button:last-child');
+                            var quantityElement = menuItem.querySelector('.quantity');
+                            var priceElement = menuItem.querySelector('.price');
+                            var unaffectedPriceElement = menuItem.querySelector('.unaffected-price');
+                
+                            var pricePerItem = Number(unaffectedPriceElement.textContent);
+                            var quantity = 0;
+                
+                            minusButton.onclick = function() {
+                                if (quantity > 0) {
+                                    quantity--;
+                                    quantityElement.textContent = quantity;
+                                    priceElement.textContent = pricePerItem * quantity;
+                                }
+                                updateTotalPayment();
+                                updateOrderInput();
+                            };
+                
+                            plusButton.onclick = function() {
+                                quantity++;
+                                quantityElement.textContent = quantity;
+                                priceElement.textContent = pricePerItem * quantity;
+                                updateTotalPayment();
+                                updateOrderInput();
+                            };
+                        });
+                
+                        function updateTotalPayment() {
+                            var totalPayment = 0;
+                            menuItems.forEach(function(menuItem) {
+                                var priceElement = menuItem.querySelector('.price');
+                                totalPayment += Number(priceElement.textContent);
+                            });
+                            totalPaymentInput.value = totalPayment;
                         }
-                        updateTotalPayment();
+                
+                        function updateOrderInput() {
+                            var orders = [];
+                            menuItems.forEach(function(menuItem) {
+                                var itemNameElement = menuItem.querySelector('p:nth-child(2)');
+                                var itemName = itemNameElement ? itemNameElement.textContent : '';
+                                var itemQuantity = menuItem.querySelector('.quantity').textContent;
+                
+                                if (itemQuantity > 0) {
+                                    orders.push(itemName + ' x' + itemQuantity);
+                                }
+                            });
+                            orderInput.value = orders.join(', ');
+                        }
+                
+                        function handleSubmit(event) {
+                            event.preventDefault();
+                
+                            var fullname = document.querySelector('#fullname').value;
+                            var phone = document.querySelector('#phone').value;
+                            var address = document.querySelector('#address').value;
+                            var datetime = document.querySelector('#datetime').value;
+                            var totalPayment = document.querySelector('#total').value;
+                
+                            var orders = [];
+                            menuItems.forEach(function(menuItem) {
+                                var itemNameElement = menuItem.querySelector('p:nth-child(2)');
+                                var itemName = itemNameElement ? itemNameElement.textContent : '';
+                                var itemQuantity = menuItem.querySelector('.quantity').textContent;
+                
+                                if (itemQuantity > 0) {
+                                    var order = {
+                                        item: itemName,
+                                        quantity: itemQuantity,
+                                        fullname: fullname,
+                                        phone: phone,
+                                        address: address,
+                                        datetime: datetime,
+                                        totalPayment: totalPayment
+                                    };
+                                    orders.push(order);
+                                }
+                            });
+                
+                            localStorage.setItem('orderData', JSON.stringify(orders));
+                            window.location.href = 'admin.html';
+                        }
+                
+                        var orderForm = document.querySelector('#orderForm');
+                        orderForm.addEventListener('submit', handleSubmit);
                     };
-        
-                    plusButton.onclick = function() {
-                        quantity++;
-                        quantityElement.textContent = quantity;
-                        priceElement.textContent = pricePerItem * quantity;
-                        updateTotalPayment();
-                    };
-                });
-        
-                function updateTotalPayment() {
-                    var totalPayment = 0;
-                    menuItems.forEach(function(menuItem) {
-                        var priceElement = menuItem.querySelector('.price');
-                        totalPayment += Number(priceElement.textContent);
-                    });
-                    totalPaymentInput.value = totalPayment;
-                }
-            };
-        </script>
-        
-        
+                </script>
+                
+                                
+                
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
