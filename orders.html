@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+    <style>
+        body {
+            background-color: aquamarine;
+        }
+        
+        .container p{
+            text-align: center;
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .navbar-brand {
+            font-size: 20px;
+            color: #eccc68 !important;
+            font-weight: bold;
+        }
+        .navbar-brand:hover {
+            color: #ffa502 !important;
+        }
+        .navbar-brand:active {
+            color: #ff6348 !important;
+        }
+        .nav-link {
+            color: #eccc68 !important;
+        }
+        .nav-link:hover {
+            color: #ffa502 !important;
+        }
+        .nav-link:active {
+            color: #ff6348 !important;
+        }
+        
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            
+            
+        }
+        .menu-item img {
+            width: 300px;
+            height: 260px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            border: solid black;
+        }
+        .menu-item {
+            border: 1px solid #000000;
+            padding: 10px;
+        }
+
+        .quantity-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 200px;
+        }
+        </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
+        <a class="navbar-brand" href="index.html">E.S FOOD DELIVERY</a> 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span> 
+            </button> 
+            <div class="collapse navbar-collapse" id="navbarNav">
+                 <ul class="navbar-nav">
+                     <li class="nav-item active">
+                         <a class="nav-link" href="home.html">Home</a>
+                         </li> <li class="nav-item">
+                             <a class="nav-link" href="about.html">About</a> 
+                            </li>  
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                                </li>
+                        </ul> 
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin.html">Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="order.html">Order Now!</a>
+                            </li>
+                        </ul>
+                    </div> 
+                </nav>
+
+                <h2 style="font-weight: 600; text-align: center;">Menu</h2>
+<div class="container mt-5">
+    <div class="menu-item">
+        <h2>Fries</h2>
+        <img src="fz.jpg" alt="Food Image">
+        <p>Price: $<span class="unaffected-price">15</span></p>
+        <p>Total: $<span class="price">15</span></p>
+        <div class="quantity-control">
+            <button>-</button>
+            <span class="quantity">0</span>
+            <button>+</button>
+        </div>
+    </div>
+    <div class="menu-item">
+        <h2>Pizza</h2>
+        <img src="pz.jpg" alt="Food Image">
+        <p>Price: $<span class="unaffected-price">15</span></p>
+        <p>Total: $<span class="price">15</span></p>
+        <div class="quantity-control">
+            <button>-</button>
+            <span class="quantity">0</span>
+            <button>+</button>
+        </div>
+    </div>
+    <div class="menu-item">
+        <h2>Burger</h2>
+        <img src="bgr.jpg" alt="Food Image">
+        <p>Price: $<span class="unaffected-price">15</span></p>
+        <p>Total: $<span class="price">15</span></p>
+        <div class="quantity-control">
+            <button>-</button>
+            <span class="quantity">0</span>
+            <button>+</button>
+        </div>
+    </div>
+    <div class="menu-item">
+        <h2>Coke</h2>
+        <img src="cok.jpg" alt="Food Image">
+        <p>Price: $<span class="unaffected-price">15</span></p>
+        <p>Total: $<span class="price">15</span></p>
+        <div class="quantity-control">
+            <button>-</button>
+            <span class="quantity">0</span>
+            <button>+</button>
+        </div>
+    </div>
+    <div class="menu-item">
+        <h2>Juice</h2>
+        <img src="jos.jpg" alt="Food Image">
+        <p>Price: $<span class="unaffected-price">15</span></p>
+        <p>Total: $<span class="price">15</span></p>
+        <div class="quantity-control">
+            <button>-</button>
+            <span class="quantity">0</span>
+            <button>+</button>
+        </div>
+    </div>
+    <div class="menu-item">
+        <h2>Water</h2>
+        <img src="tb.jpg" alt="Food Image">
+        <p>Price: $<span class="unaffected-price">15</span></p>
+        <p>Total: $<span class="price">15</span></p>
+        <div class="quantity-control">
+            <button>-</button>
+            <span class="quantity">0</span>
+            <button>+</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4"> <!-- Adjusted grid classes here -->
+                <h2 class="text-center">Login</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" style="margin-bottom: 20px;">Login</button>
+                    <p style="text-align: center;">Don't have an account?</p>
+                    <a href="register.html" class="btn btn-primary btn-block">Register</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    
+    
+    <button type="button" onclick="alert('Button clicked!')">Click Me!</button>
+</div>
+
+                
+            
+                <script>
+                    window.onload = function() {
+                        var menuItems = document.querySelectorAll('.menu-item');
+            
+                        menuItems.forEach(function(menuItem) {
+                            var minusButton = menuItem.querySelector('.quantity-control button:first-child');
+                            var plusButton = menuItem.querySelector('.quantity-control button:last-child');
+                            var quantityElement = menuItem.querySelector('.quantity');
+                            var priceElement = menuItem.querySelector('.price');
+            
+                            var pricePerItem = Number(priceElement.textContent);
+                            var quantity = 0;
+            
+                            minusButton.onclick = function() {
+                                if (quantity > 0) {
+                                    quantity--;
+                                    quantityElement.textContent = quantity;
+                                    priceElement.textContent = pricePerItem * quantity;
+                                }
+                            };
+            
+                            plusButton.onclick = function() {
+                                quantity++;
+                                quantityElement.textContent = quantity;
+                                priceElement.textContent = pricePerItem * quantity;
+                            };
+                        });
+                    };
+                </script>
+</body>
+</html>
